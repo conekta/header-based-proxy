@@ -11,7 +11,7 @@ import (
 
 // Config defines the plugin configuration.
 type Config struct {
-	Header  string            `json:"headers,omitempty"` // target header
+	Header  string            `json:"header,omitempty"`  // target header
 	Mapping map[string]string `json:"mapping,omitempty"` // mapping pairs (regex, target service)
 }
 
