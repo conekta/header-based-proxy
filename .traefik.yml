@@ -1,0 +1,15 @@
+displayName: Header Based Proxy Plugin
+type: middleware
+
+import: github.com/conekta/header-based-proxy
+
+summary: "The Traefik Header Based Proxy Plugin enhances these features by offering a redirection option based on header values."
+
+iconPath: assets/conekta.png
+bannerPath: assets/conekta.png
+
+example:
+  Header: 'X-Header-Custom'
+  Mapping:
+    value1: 'http://service1'
+    value2: 'http://service2'
