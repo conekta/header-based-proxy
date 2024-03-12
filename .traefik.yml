@@ -8,7 +8,7 @@ summary: "The Traefik Header Based Proxy Plugin enhances these features by offer
 iconPath: assets/conekta.png
 bannerPath: assets/conekta.png
 
-example:
+testData:
   Header: 'X-Header-Custom'
   Mapping:
     value1: 'http://service1'
