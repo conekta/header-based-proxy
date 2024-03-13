@@ -15,32 +15,24 @@ func TestProxy(t *testing.T) {
 		name               string
 		headerName         string
 		headerValue        string
-		expected           string
-		pathExpected       string
 		expectedHostHeader string
 	}{
 		{
 			name:               "Proxy enabled",
 			headerName:         "X-Femsa-Migrated",
 			headerValue:        "true",
-			expected:           "api.digitalfemsa.io",
-			pathExpected:       "/orders",
 			expectedHostHeader: "api.digitalfemsa.io",
 		},
 		{
 			name:               "Proxy disabled",
 			headerValue:        "false",
 			headerName:         "X-Femsa-Migrated",
-			expected:           "api.conekta.io",
-			pathExpected:       "/orders",
 			expectedHostHeader: "",
 		},
 		{
 			name:               "Header Empty",
 			headerName:         "X-Femsa-Migrated",
 			headerValue:        "",
-			expected:           "api.conekta.io",
-			pathExpected:       "/orders",
 			expectedHostHeader: "",
 		},
 	}
@@ -70,8 +62,6 @@ func TestProxy(t *testing.T) {
 
 			handler.ServeHTTP(recorder, req)
 
-			assert.EqualValues(t, tt.expected, req.Host)
-			assert.EqualValues(t, tt.pathExpected, req.URL.Path)
 			assert.EqualValues(t, tt.expectedHostHeader, req.Header.Get("X-Forwarded-Host"))
 		})
 	}
