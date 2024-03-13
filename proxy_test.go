@@ -45,7 +45,7 @@ func TestProxy(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			cfg := proxy.CreateConfig()
 			cfg.Header = "X-Femsa-Migrated"
-			cfg.Mapping["true"] = "https://webhook.site/591fbd20-0449-40be-b29f-4da1aea9a44f"
+			cfg.Mapping["true"] = "https://api.digitalfemsa.io"
 
 			ctx := context.Background()
 			next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
