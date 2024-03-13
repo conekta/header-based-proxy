@@ -12,7 +12,7 @@ trigger:
 
 steps:
   - name: unit test
-    image: golang:1.15
+    image: golang:1.22
     environment:
       GIT_BRANCH: ${DRONE_BRANCH}
       GIT_COMMIT: ${DRONE_COMMIT_SHA}
