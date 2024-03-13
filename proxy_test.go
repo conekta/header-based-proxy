@@ -2,11 +2,12 @@ package header_based_proxy_test
 
 import (
 	"context"
-	proxy "github.com/conekta/header-based-proxy"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	proxy "github.com/conekta/header-based-proxy"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestProxy(t *testing.T) {
@@ -20,19 +21,19 @@ func TestProxy(t *testing.T) {
 			name:        "Proxy enabled",
 			headerName:  "X-Femsa-Migrated",
 			headerValue: "true",
-			expected:    "true",
+			expected:    "api.digitalfemsa.io",
 		},
 		{
 			name:        "Proxy disabled",
 			headerValue: "false",
 			headerName:  "X-Femsa-Migrated",
-			expected:    "",
+			expected:    "api.conekta.io",
 		},
 		{
 			name:        "Header Empty",
 			headerName:  "X-Femsa-Migrated",
 			headerValue: "",
-			expected:    "",
+			expected:    "api.conekta.io",
 		},
 	}
 
@@ -60,7 +61,8 @@ func TestProxy(t *testing.T) {
 			}
 
 			handler.ServeHTTP(recorder, req)
-			assert.EqualValues(t, tt.expected, req.Header.Get("Proxied"))
+
+			assert.EqualValues(t, tt.expected, req.Host)
 		})
 	}
 }
