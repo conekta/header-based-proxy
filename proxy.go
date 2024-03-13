@@ -62,6 +62,8 @@ func (a *CustomProxy) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 			proxy := httputil.NewSingleHostReverseProxy(destinationUrl)
 			req.Host = destinationUrl.Host
 			req.URL.Host = destinationUrl.Host
+			print(req.Host)
+			print(req.URL)
 			proxy.ServeHTTP(rw, req)
 			return
 		}
