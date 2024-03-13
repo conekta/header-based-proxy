@@ -1,0 +1,12 @@
+#!/bin/bash
+COUNTER=0
+
+for filename in *.out; do
+    echo $filename
+    cc-test-reporter format-coverage $filename -t gocov -o .codeclimate/codeclimate.$filename.json
+    COUNTER=$[$COUNTER +1]
+done
+
+cc-test-reporter sum-coverage .codeclimate/codeclimate.*.json -p $COUNTER -o .codeclimate/codeclimate.total.json
+
+cc-test-reporter upload-coverage -i .codeclimate/codeclimate.total.json

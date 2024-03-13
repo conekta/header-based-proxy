@@ -31,7 +31,7 @@ type CustomProxy struct {
 }
 
 // New creates a new CustomProxy plugin instance
-func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
+func New(_ context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
 	if len(config.Header) == 0 {
 		return nil, fmt.Errorf("header cannot be empty")
 	}
@@ -59,9 +59,9 @@ func (a *CustomProxy) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 				continue
 			}
 
-			req.Header.Add("proxied", "true")
-
 			proxy := httputil.NewSingleHostReverseProxy(destinationUrl)
+			req.URL = destinationUrl
+			req.Host = destinationUrl.Host
 			proxy.ServeHTTP(rw, req)
 			return
 		}

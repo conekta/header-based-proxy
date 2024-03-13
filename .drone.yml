@@ -1,0 +1,31 @@
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+trigger:
+  branch:
+    - main
+  event:
+    - pull_request
+    - push
+
+workspace:
+  path: /go/src/github.com/${DRONE_REPO}
+steps:
+  - name: unit test
+    image: golang:1.22
+    environment:
+      GIT_BRANCH: ${DRONE_BRANCH}
+      GIT_COMMIT: ${DRONE_COMMIT_SHA}
+      CC_TEST_REPORTER_ID:
+        from_secret: CC_TEST_REPORTER_ID
+    commands:
+      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter
+      - chmod +x cc-test-reporter && mv cc-test-reporter  /usr/local/bin
+      - go mod tidy
+      - make test
+      - make codeclimate
+image_pull_secrets:
+  - ECR_PULL_SECRET
+  - DOCKERCONFIG
