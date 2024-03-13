@@ -19,8 +19,8 @@ steps:
       CC_TEST_REPORTER_ID:
         from_secret: CC_TEST_REPORTER_ID
     commands:
-      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter && \
-        chmod +x cc-test-reporter && mv cc-test-reporter  /usr/local/bin
+      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter
+      - chmod +x cc-test-reporter && mv cc-test-reporter  /usr/local/bin
       - go mod tidy
       - make test
       - make codeclimate
