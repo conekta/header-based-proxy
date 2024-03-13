@@ -72,7 +72,7 @@ func TestProxy(t *testing.T) {
 
 			assert.EqualValues(t, tt.expected, req.Host)
 			assert.EqualValues(t, tt.pathExpected, req.URL.Path)
-			assert.EqualValues(t, tt.expectedHostHeader, req.Header.Get("Host"))
+			assert.EqualValues(t, tt.expectedHostHeader, req.Header.Get("X-Forwarded-Host"))
 		})
 	}
 }
