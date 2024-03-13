@@ -10,6 +10,8 @@ trigger:
     - pull_request
     - push
 
+workspace:
+  path: /go/src/github.com/${DRONE_REPO}
 steps:
   - name: unit test
     image: golang:1.22
